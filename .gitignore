@@ -1,21 +1,12 @@
-# Node.js
 node_modules/
 .env
 dist/
 build/
 .cache/
 
-# Prisma Generated Files (DO NOT TRACK)
-.prisma/
-generated/
-**/generated/
-**/runtime/
 
-# Logs
 logs
 *.log
 
-# System
 .DS_Store
 *.swp
-
