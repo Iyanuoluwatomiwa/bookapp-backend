@@ -1,0 +1,6 @@
+{
+  "AppName": "BookStore App - Prduction",
+  "Port": 5000,
+  "serverUrl": "http://localhost:7000",
+  "jwtSecret": "veri-y-superSecre-t$code"
+}

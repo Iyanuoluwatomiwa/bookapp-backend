@@ -1,0 +1,6 @@
+{
+  "AppName": "BookStore App - Development",
+  "Port": 7000,
+  "serverUrl": "http://localhost:7000",
+  "jwtSecret": "mySuperSecretKey"
+}

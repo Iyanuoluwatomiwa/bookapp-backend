@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id      Int @id @default(autoincrement())
+  name    String
+  email   String @unique
+  userName  String? @unique
+  isAdmin Boolean @default(false)  
+  password String
+  createdAt  DateTime @default(now())
+  updateAt   DateTime @updatedAt
+
+  //user to profile - one to one relationship
+  profile Profile?
+
+  // user to book - one to many relationship
+  books Book[]
+
+  @@map("users")
+}
+
+model Profile{
+  id     Int @id @default(autoincrement())
+  bio  String?
+  avatar String?
+  createdAt  DateTime @default(now())
+  updateAt   DateTime @updatedAt
+
+  // user to profile - one to one relationship
+  userId Int @unique // key feature
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("profiles")
+}
+
+model Category{
+  id      Int @id @default(autoincrement())
+  name    String
+  description String
+
+  //book to category - one to many relationship
+  books Book[]
+
+  @@map("categories")
+}
+model Book{
+  id      Int @id @default(autoincrement())
+  title   String
+  author    String
+  description   String @unique
+  priceRequest     Int
+  publisher        String?     
+  publicationDate  String?    
+  isbn             String?     
+  
+  // user to book - one to many relationship
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  createdAt  DateTime @default(now())
+  updateAt   DateTime @updatedAt
+
+  //book to category - one to many relationship
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@map("books")
+}
+
+
